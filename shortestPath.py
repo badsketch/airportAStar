@@ -3,7 +3,7 @@ from geopy.distance import great_circle
 import math
 import random
 from mpl_toolkits.basemap import Basemap
-import matplotlib.pyplot as plt
+import matplotlib.pyplot 
 from datetime import datetime
 
 
@@ -129,9 +129,19 @@ while openSet:
                 fScore[neighbor] = gScore[neighbor] + heuristic_cost_estimate(neighbor,dest)
 
 
+m = Basemap(projection = 'mill',lon_0=0)
+m.drawcoastlines()
+m.drawmapboundary(fill_color='aqua')
+m.fillcontinents(color='coral',lake_color='aqua')
 
-
-
+for i in range(len(paths)-1 ,0, -1):
+        src = airportGraph[paths[i]]
+        dest = airportGraph[paths[i-1]]
+        srcLat,srcLon = src.getCoord()
+        destLat,destLon = dest.getCoord()
+        m.drawgreatcircle(float(srcLon),float(srcLat),float(destLon),float(destLat),linewidth =2,color='b')
+        print("from "+src.getName()+" to "+dest.getName())
+matplotlib.pyplot.show()
 #for path in paths:
  #       print(airportGraph[path].getName())                
 
